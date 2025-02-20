@@ -499,6 +499,8 @@ void BootProgressCode::progressCodeCallBack(sdbusplus::message::message& msg)
                             << static_cast<int>(hexWordArray.at(arrayLoop++));
 
                         hexWordsWithSRC += convert.str();
+                        // clear the buffer
+                        convert.str("");
                     }
                 }
                 executor->storeSRCAndHexwords(hexWordsWithSRC);
