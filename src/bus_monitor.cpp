@@ -258,8 +258,8 @@ void PELListener::setPelRelatedFunctionState(
 
     if (!functionStateEnabled)
     {
-        // these functions needs to be enabled only once when first
-        // PEL of desired severity is received.
+        // these functions needs to be enabled only once when first PEL of
+        // desired severity is received.
         functionStateEnabled = true;
         list.emplace_back(11);
         list.emplace_back(12);
@@ -504,6 +504,18 @@ void BootProgressCode::progressCodeCallBack(sdbusplus::message::message& msg)
                     }
                 }
                 executor->storeSRCAndHexwords(hexWordsWithSRC);
+
+                // Enable functions when progress code is received
+                types::FunctionalityList list;
+                list.reserve(3);
+
+                // these functions needs to be enabled once when progress code
+                // is received
+                list.emplace_back(11);
+                list.emplace_back(12);
+                list.emplace_back(13);
+
+                stateManager->enableFunctonality(list);
             }
         }
         else
